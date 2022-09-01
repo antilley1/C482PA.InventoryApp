@@ -4,12 +4,12 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-/* Only needed for test inventory
+
 import mantil3.model.InHouse;
 import mantil3.model.Inventory;
 import mantil3.model.Outsourced;
 import mantil3.model.Product;
- */
+
 
 import java.io.IOException;
 
@@ -38,7 +38,7 @@ public class InventoryApplication extends Application {
      * @param args The command line parameters.
      */
     public static void main(String[] args) {
-        /*
+
         InHouse wheels = new InHouse(1, "wheels", 3.99, 1, 0, 10, 111);
         Outsourced handlebars = new Outsourced(3, "handlebars", 3.99, 1, 0, 10, "Company");
 
@@ -51,7 +51,7 @@ public class InventoryApplication extends Application {
         Inventory.addProduct(bike1);
         Inventory.addProduct(bike2);
         Inventory.addProduct(bike3);
-        */
+
 
         launch();
     }

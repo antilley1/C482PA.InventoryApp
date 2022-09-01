@@ -42,6 +42,7 @@ public class ModifyProductFormController implements Initializable {
     @FXML private TextField modifyMax;
     @FXML private TextField modifyMin;
     @FXML private TextField modifyName;
+    @FXML private Label errorMessage;
 
     private Product tempProduct;
     private int productIndex;
@@ -75,6 +76,7 @@ public class ModifyProductFormController implements Initializable {
      * @throws IOException  thrown when navigating screens
      */
     @FXML private void saveProduct(ActionEvent actionEvent) throws IOException {
+        boolean stockError = false;
         tempProduct.setName(modifyName.getText());
         tempProduct.setStock(Integer.parseInt(modifyStock.getText()));
         tempProduct.setPrice(Double.parseDouble(modifyCost.getText()));
@@ -82,11 +84,19 @@ public class ModifyProductFormController implements Initializable {
         tempProduct.setMax(Integer.parseInt(modifyMax.getText()));
         Inventory.updateProduct(productIndex, tempProduct);
         Inventory.SelectedProduct.getAssociatedParts().clear();
-        for(int i = 0; i < tempProduct.getAssociatedParts().size(); i++){
-            Inventory.SelectedProduct.addAssociatedPart(tempProduct.getAssociatedParts().get(i));
+        if(tempProduct.getStock() > tempProduct.getMax() || tempProduct.getStock() < tempProduct.getMin()){
+            stockError = true;
         }
-        revertTempProduct();
-        Utils.navigateScreens("/mantil3/view/main-form-view.fxml", actionEvent, "Inventory System");
+        if(!stockError){
+            for(int i = 0; i < tempProduct.getAssociatedParts().size(); i++){
+                Inventory.SelectedProduct.addAssociatedPart(tempProduct.getAssociatedParts().get(i));
+            }
+            revertTempProduct();
+            Utils.navigateScreens("/mantil3/view/main-form-view.fxml", actionEvent, "Inventory System");
+        }
+        else {
+            errorMessage.setText("Check inv, max, and min.");
+        }
     }
 
     /**

@@ -29,6 +29,7 @@ public class AddProductFormController implements Initializable {
     @FXML private TextField prodMin;
     @FXML private TextField prodName;
     @FXML private TextField partSearchText;
+    @FXML private Label errorMessage;
 
     @FXML private TableView<Part> PartTableView;
     @FXML private TableColumn<Part, Integer> partIDCol;
@@ -62,15 +63,32 @@ public class AddProductFormController implements Initializable {
      * @see Utils#navigateScreens(String, ActionEvent, String)
      */
     @FXML private void saveProduct(ActionEvent actionEvent) throws IOException {
-        int id = Inventory.getAllProducts().get(Inventory.getAllProducts().size() - 1).getId() + 1;
-        Inventory.SelectedProduct.setId(id);
-        Inventory.SelectedProduct.setName(prodName.getText());
-        Inventory.SelectedProduct.setStock(Integer.parseInt(prodStock.getText()));
-        Inventory.SelectedProduct.setPrice(Double.parseDouble(prodPrice.getText()));
-        Inventory.SelectedProduct.setMin(Integer.parseInt(prodMin.getText()));
-        Inventory.SelectedProduct.setMax(Integer.parseInt(prodMax.getText()));
-        Inventory.addProduct(Inventory.SelectedProduct);
-        Utils.navigateScreens("/mantil3/view/main-form-view.fxml", actionEvent, "Inventory System");
+        int id = 0;
+        boolean stockError = false;
+        if (Inventory.getAllProducts().size()!=0){
+            id = Inventory.getAllProducts().get(Inventory.getAllProducts().size() - 1).getId() + 1;
+
+        }
+        int stock = Integer.parseInt(prodStock.getText());
+        int min = Integer.parseInt(prodMin.getText());
+        int max = Integer.parseInt(prodMax.getText());
+
+        if(stock > max || stock < min){
+            stockError = true;
+        }
+        if(!stockError){
+            Inventory.SelectedProduct.setId(id);
+            Inventory.SelectedProduct.setName(prodName.getText());
+            Inventory.SelectedProduct.setStock(stock);
+            Inventory.SelectedProduct.setPrice(Double.parseDouble(prodPrice.getText()));
+            Inventory.SelectedProduct.setMin(min);
+            Inventory.SelectedProduct.setMax(max);
+            Inventory.addProduct(Inventory.SelectedProduct);
+            Utils.navigateScreens("/mantil3/view/main-form-view.fxml", actionEvent, "Inventory System");
+        }
+        else {
+            errorMessage.setText("Check inv, max, and min.");
+        }
     }
 
     /**

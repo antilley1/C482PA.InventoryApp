@@ -97,12 +97,7 @@ public class Inventory {
      * @param selectedPart  Part object whose attributes will be passed
      */
     public static void updatePart(int index, Part selectedPart) {
-        SelectedPart = allParts.get(index);
-        SelectedPart.setName(selectedPart.getName());
-        SelectedPart.setStock(selectedPart.getStock());
-        SelectedPart.setPrice(selectedPart.getPrice());
-        SelectedPart.setMin(selectedPart.getMin());
-        SelectedPart.setMax(selectedPart.getMax());
+        allParts.set(index, selectedPart);
     }
 
     /**
@@ -112,12 +107,7 @@ public class Inventory {
      * @param selectedProduct   Product object whose attributes will be passed
      */
     public static void updateProduct(int index, Product selectedProduct) {
-        SelectedProduct = allProducts.get(index);
-        SelectedProduct.setName(selectedProduct.getName());
-        SelectedProduct.setStock(selectedProduct.getStock());
-        SelectedProduct.setPrice(selectedProduct.getPrice());
-        SelectedProduct.setMin(selectedProduct.getMin());
-        SelectedProduct.setMax(selectedProduct.getMax());
+        allProducts.set(index, selectedProduct);
     }
 
     /**

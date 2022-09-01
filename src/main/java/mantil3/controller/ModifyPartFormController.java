@@ -84,16 +84,22 @@ public class ModifyPartFormController implements Initializable {
         }
         if (!stockError){
             if (inHouseRadio.isSelected()) {
-                int machineID = Integer.parseInt(partMachineID.getText());
-                InHouse updatedPart = new InHouse(id, name, price, stock, min, max, machineID);
-                Inventory.updatePart(inventoryIndex, updatedPart);
+                try {
+                    int machineID = Integer.parseInt(partMachineID.getText());
+                    InHouse updatedPart = new InHouse(id, name, price, stock, min, max, machineID);
+                    Inventory.updatePart(inventoryIndex, updatedPart);
+                    toMainForm(actionEvent);
+                }
+                catch (Exception e) {
+                    errorMessage.setText("Machine ID must be an Integer");
+                }
             }
             else if (outSourcedRadio.isSelected()) {
                 String company = partMachineID.getText();
                 Outsourced updatedPart = new Outsourced(id, name, price, stock, min, max, company);
                 Inventory.updatePart(inventoryIndex, updatedPart);
+                toMainForm(actionEvent);
             }
-            toMainForm(actionEvent);
         }
         else {
             errorMessage.setText("Check inv, max, and min.");

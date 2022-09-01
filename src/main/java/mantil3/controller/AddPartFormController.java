@@ -38,6 +38,8 @@ public class AddPartFormController implements Initializable {
      */
     @FXML private void inHouseSetup() {
         radioLabel.setText("Machine ID");
+        inHouseRadio.setSelected(true);
+        outSourcedRadio.setSelected(false);
     }
 
     /**
@@ -45,6 +47,8 @@ public class AddPartFormController implements Initializable {
      */
     @FXML private void outSourcedSetup() {
         radioLabel.setText("Company Name");
+        inHouseRadio.setSelected(false);
+        outSourcedRadio.setSelected(true);
     }
 
     /**
